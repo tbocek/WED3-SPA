@@ -18,7 +18,7 @@ func helloWorld(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		log.Fatal(err)
 	}
 	model := Model{Name: ps.ByName("name")}
-	err = template.ExecuteTemplate(w, "index.gtpl", &model)
+	err = template.Execute(w, &model)
 	if err != nil {
 		log.Fatal(err)
 	}

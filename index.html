@@ -30,6 +30,7 @@ Name: <input data-tw-bind="name" type="text">
     send();
 
     // ***** data binding ************
+    // https://medium.com/frontend-fun/js-vanilla-two-way-binding-5a29bc86c787
     var elements = document.querySelectorAll('[data-tw-bind]'), scope = {};
     elements.forEach(function(element) {
         //execute scope setter

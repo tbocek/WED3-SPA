@@ -37,11 +37,16 @@ func spa(w http.ResponseWriter, _ *http.Request, ps httprouter.Params) {
 	json.NewEncoder(w).Encode(Model{Name: ps.ByName("name")})
 }
 
+func vue(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	http.ServeFile(w, r, "vue.html")
+}
+
 func main() {
 	log.Print("Starting server...")
 	router := httprouter.New()
 	router.GET("/nospa/:name", nospa)
 	router.GET("/spa/:name", spa)
 	router.GET("/", index)
+	router.GET("/vue", vue)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

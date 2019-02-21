@@ -29,8 +29,8 @@ Name: <input data-tw-bind="name" type="text">
     }
     send();
 
-    var elements = document.querySelectorAll('[data-tw-bind]'),
-            scope = {};
+    // ***** data binding ************
+    var elements = document.querySelectorAll('[data-tw-bind]'), scope = {};
     elements.forEach(function(element) {
         //execute scope setter
         if(element.type === 'text'|| element.type === 'textarea'){

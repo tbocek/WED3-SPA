@@ -12,9 +12,17 @@
 
 <script type="text/javascript">
     function send() {
-        fetch('/api')
-        //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=10')
-                .then((resp) => resp.json())
+        //service returns: access-control-allow-origin: * -> works with adblockers
+        fetch('https://blockchain.info/ticker').then((resp) => resp.json())
+            .then(data => {
+                //console.log(data);
+                let string = 'Markets:<br> USD:' + data.USD.last;
+                let element = document.getElementById('text');
+                element.innerHTML = string;
+            });
+        //fetch('/api')
+        /*fetch('https://api.coinmarketcap.com/v1/ticker/?limit=10')
+                .then ()((resp) => resp.json())
                 .then(data => {
                     //console.log(data);
                     let string = 'Markets:<br>';
@@ -23,7 +31,7 @@
                     }
                     let element = document.getElementById('text');
                     element.innerHTML = string;
-                });
+                });*/
     }
 </script>
 </body>

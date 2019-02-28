@@ -3,16 +3,20 @@ package main
 import (
 	"github.com/gorilla/websocket"
 	"github.com/julienschmidt/httprouter"
+	"github.com/julienschmidt/sse"
 	"io"
 	"log"
 	"net/http"
 	"time"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
+var (
+	upgrader = websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+	}
+	streamer *sse.Streamer
+)
 
 func test(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	http.ServeFile(w, r, "market-ws.html")
@@ -34,11 +38,21 @@ func ws(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 
+func sendsse() {
+	for {
+		streamer.SendString("11", "test", time.Now().String())
+		time.Sleep(2 * time.Second)
+	}
+}
+
 func main() {
 	log.Print("Starting server...")
 	router := httprouter.New()
 	router.GET("/", test)
 	router.GET("/api", proxy)
-	router.GET("/wss", ws)
+	router.GET("/ws", ws)
+	streamer = sse.New()
+	router.Handler("GET", "/sse", streamer)
+	go sendsse()
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

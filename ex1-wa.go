@@ -11,6 +11,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/wasm", handler)
-	http.Handle("/", http.FileServer(http.Dir("rust/pkg")))
+	http.Handle("/", http.FileServer(http.Dir(".")))
 	http.ListenAndServe(":8080", nil)
 }

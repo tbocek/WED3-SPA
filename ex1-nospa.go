@@ -34,7 +34,7 @@ func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func bind(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	http.ServeFile(w, r, "index.html")
+	http.ServeFile(w, r, "index-wa.html")
 }
 
 func spa(w http.ResponseWriter, _ *http.Request, ps httprouter.Params) {

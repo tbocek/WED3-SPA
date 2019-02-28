@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello wasm-pack!</title>
+  </head>
+  <body>
+     <script> 
+      WebAssembly.instantiateStreaming(fetch("wasm"))
+        .then(wasmModule => {
+          const result = wasmModule.instance.exports.mul(3, 4);
+          const text = document.createTextNode(result);
+          document.body.appendChild(text);
+        });
+    </script>
+  </body>
+</html>

@@ -1,13 +1,13 @@
 package main
 
 import (
-	"encoding/json"
-	"strconv"
 	//https://godoc.org/github.com/julienschmidt/httprouter, https://github.com/julienschmidt/httprouter
+	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type Model struct {
@@ -30,15 +30,15 @@ func nospa(w http.ResponseWriter, _ *http.Request, ps httprouter.Params) {
 }
 
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	http.ServeFile(w, r, "index-plain.html")
+}
+
+func bind(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	http.ServeFile(w, r, "index.html")
 }
 
 func spa(w http.ResponseWriter, _ *http.Request, ps httprouter.Params) {
 	json.NewEncoder(w).Encode(Model{Name: ps.ByName("name")})
-}
-
-func vue(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	http.ServeFile(w, r, "vue.html")
 }
 
 func main() {
@@ -47,6 +47,6 @@ func main() {
 	router.GET("/nospa/:name", nospa)
 	router.GET("/spa/:name", spa)
 	router.GET("/", index)
-	router.GET("/vue", vue)
+	router.GET("/bind", bind)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

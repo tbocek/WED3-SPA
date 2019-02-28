@@ -10,7 +10,8 @@
 <h2 id="hello-title">empty</h2>
 <button type="submit" class="primary" onClick="send();">Submit</button>
 
-Name: <input data-tw-bind="name" type="text">
+Name: <input id="test" data-tw-bind="name" type="text">
+<h1>your input</h1>
 <span data-tw-bind="name"></span>
 
 </body>
@@ -26,8 +27,10 @@ Name: <input data-tw-bind="name" type="text">
                     element.innerHTML = data.Name + ",counter: " + counter;
                 });
         counter++;
+        document.getElementById("test").value = "counter: " + counter;
+        document.getElementById("test").oninput();
     }
-    send();
+
 
     // ***** data binding ************
     // https://medium.com/frontend-fun/js-vanilla-two-way-binding-5a29bc86c787
@@ -37,7 +40,7 @@ Name: <input data-tw-bind="name" type="text">
         if(element.type === 'text'|| element.type === 'textarea'){
             var propToBind = element.getAttribute('data-tw-bind');
             addScopeProp(propToBind);
-            element.onkeyup = function(){
+            element.oninput = function(e){
                 scope[propToBind] = element.value;
             }
         };
@@ -72,5 +75,7 @@ Name: <input data-tw-bind="name" type="text">
             }
         }
     });
+
+    send();
 
 </script>

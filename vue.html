@@ -9,7 +9,7 @@
 
 <body>
 <div id="app">
-    <h2 class="hello-title">Hello {{name}}!</h2>
+    <h2 v-html="name" class="hello-title">Hello {{name}}!</h2>
     <input v-model="message" placeholder="edit me">
     <button @click="inc">Add 1</button>
     <p>The button above has been clicked {{ counter }} times.</p>
@@ -25,10 +25,14 @@
         },
         created: function () {
             fetch('/spa/' + window.location.hash.substring(1))
-                    .then((resp) => resp.json())
-                    .then(data => {
-                        this.name = data.Name;
-                    });
+                .then(response => response.json())
+                .then(data => {
+                    let string = 'Markets:<br>';
+                    for (let s of data) {
+                        string += s.name + ', price=' + s.price_usd + '<br>';
+                    }
+                    this.name = string;
+                });
         },
         methods: {
             inc: function () {

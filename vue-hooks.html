@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+</head>
+
+
+<body>
+    <div id="app">
+        <h2 class="hello-title">Hello {{name}}!</h2>
+        <input v-model="message" placeholder="edit me">
+    </div>
+
+    <script type="text/javascript">
+        vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'Hello Vue!',
+                message: ''
+            },
+            created: function () {
+                fetch('/spa/'+window.location.hash.substring(1))
+                    .then(response => response.json())
+                    .then(data => {
+                        let string = 'Markets:<br>';
+                        for (let s of data) {
+                            string += s.name + ', price=' + s.price_usd + '<br>';
+                        }
+                        this.name = string;
+                    });
+                console.log("created: " + this.$el)
+            },
+            mounted: function () {
+                console.log("mounted: " + this.$el)
+                console.log(this.$el.querySelector('.hello-title').firstChild)
+            },
+            updated: function (){
+                console.log("updated: " + this.$el)
+                console.log(this.$el.querySelector('.hello-title').firstChild)
+            },
+            destroyed: function (){
+                console.log("destroyed: " + this.$el)
+            }
+        });
+    </script>
+</body>
+</html>

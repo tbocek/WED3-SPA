@@ -10,13 +10,18 @@
 <body>
 <div id="app">
     <h2 v-html="name" class="hello-title">Hello {{name}}!</h2>
+    <input v-model="message" placeholder="edit me">
+    <button @click="inc">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
 </div>
 
 <script type="text/javascript">
     vm = new Vue({
         el: '#app',
         data: {
-            name: 'Hello Vue!'
+            name: 'Hello Vue!',
+            message: '',
+            counter: 0,
         },
         created: function () {
             fetch('/spa/' + window.location.hash.substring(1))
@@ -28,6 +33,16 @@
                     }
                     this.name = string;
                 });
+        },
+        methods: {
+            inc: function () {
+                this.counter++
+            }
+        },
+        watch: {
+            counter: function (newValue, oldValue) {
+                this.message = 'changed from '+oldValue+' to '+newValue
+            }
         }
     });
 </script>

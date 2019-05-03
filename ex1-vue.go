@@ -9,7 +9,7 @@ import (
 )
 
 func vue(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	http.ServeFile(w, r, "vue.html")
+	http.ServeFile(w, r, "vue-crypto.html")
 }
 
 func api_vue(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {

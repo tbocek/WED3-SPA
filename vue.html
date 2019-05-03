@@ -9,7 +9,7 @@
 
 <body>
 <div id="app">
-    <h2 v-html="name" class="hello-title">Hello {{name}}!</h2>
+    <h2 class="hello-title">Hello {{name}}!</h2>
 </div>
 
 <script type="text/javascript">
@@ -19,7 +19,7 @@
             name: 'Hello Vue!'
         },
         created: function () {
-            fetch('/spa/' + window.location.hash.substring(1))
+            fetch('/spa/')
                 .then(response => response.json())
                 .then(data => {
                     let string = 'Markets:<br>';

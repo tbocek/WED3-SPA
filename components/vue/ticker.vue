@@ -1,12 +1,10 @@
-<template>
-    <p>{{price}} USD</p>
-</template>
 <style>
     /* nice background color */
     body {
         background-color:#f0f0f0;
     }
 </style>
+
 <script>
     export default {
         props: ['symbol'],
@@ -34,3 +32,7 @@
         }
     }
 </script>
+
+<template>
+    <p>{{price}} USD</p>
+</template>
